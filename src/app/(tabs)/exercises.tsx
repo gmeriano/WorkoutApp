@@ -65,12 +65,7 @@ export default function Exercises() {
             <FlatList
             data={filteredExercises}
             keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-                <View style={styles.exerciseItem}>
-                <Text style={styles.exerciseName}>{item.name}</Text>
-                <Text>{item.description}</Text>
-                </View>
-            )}
+            renderItem={({ item }) => <ExerciseListItem item={item} />}
             />
         </View>
     );
@@ -89,16 +84,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingLeft: 8,
     marginBottom: 16,
-  },
-  exerciseItem: {
-    marginBottom: 12,
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  exerciseName: {
-    fontWeight: 'bold',
-    fontSize: 16,
   },
   muscleGroupFilter: {
     flexDirection: 'row',

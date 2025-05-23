@@ -1,4 +1,4 @@
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, StyleSheet } from 'react-native';
 import { Exercise } from '@/types';
 import { useRouter } from 'expo-router';
 
@@ -11,10 +11,23 @@ export default function ExerciseListItem({ item }: { item: Exercise }) {
     }
     return (
         <Pressable onPress={handlePress} className='bg-white shadow-md rounded-lg m-2'>
-            <View>
-                <Text className='text-3xl font-bold text-red-500 p-2'>{item.name}</Text>
-                <Text className='text-lg text-gray-500 p-2'>{item.description}</Text>
+            <View style={styles.exerciseItem}>
+                <Text style={styles.exerciseName}>{item.name}</Text>
+                <Text>{item.description}</Text>
             </View>
         </Pressable>
     )
 }
+
+const styles = StyleSheet.create({
+exerciseItem: {
+    marginBottom: 12,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  exerciseName: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  }
+});
