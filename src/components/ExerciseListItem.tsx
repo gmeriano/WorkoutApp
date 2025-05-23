@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 export default function ExerciseListItem({ item }: { item: Exercise }) {
     const router = useRouter();
     const handlePress = () => {
+        console.log(`Selected exercise: ${item.name}`);
         router.push(`${item.name}`);
     }
     return (
