@@ -1,29 +1,36 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { supabase } from '../../lib/supabase';
 
 export default function SignUpScreen() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSignUp = () => {
-    if (!username || !password || !confirmPassword) {
-      Alert.alert('Error', 'Please fill in all fields.');
+    async function handleSignUp() {
+    if (!email || !password || !confirmPassword) {
+      Alert.alert('Please fill in all fields!');
       return;
     }
-
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match.');
+      Alert.alert('Passwords do not match!');
       return;
     }
-
-    // Placeholder for real sign-up logic
-    Alert.alert('Account Created', `Welcome, ${username}!`);
-  };
+    setLoading(true)
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+    if (error) Alert.alert(error.message)
+    setLoading(false)
+  }
 
   const handleGoToLogin = () => {
-    Alert.alert('Redirect', 'Navigate to login screen...');
     router.push('/login'); // Redirect to the login screen
   };
 
@@ -33,9 +40,9 @@ export default function SignUpScreen() {
 
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
         autoCapitalize="none"
       />
 
@@ -60,7 +67,7 @@ export default function SignUpScreen() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button title="Already have an account? Log In" onPress={handleGoToLogin} color="#555" />
+        <Button title="Already have an account? Log In" onPress={handleGoToLogin} disabled={loading} color="#555" />
       </View>
     </View>
   );

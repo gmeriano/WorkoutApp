@@ -1,7 +1,10 @@
 import { Slot } from 'expo-router';
+import { AuthProvider } from '../providers/AuthProvider';
 
 export default function RootLayout() {
   return (
-    <Slot />
+    <AuthProvider>
+        <Slot />
+    </AuthProvider>
   );
 }

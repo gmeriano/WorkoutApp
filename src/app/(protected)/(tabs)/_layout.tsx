@@ -25,5 +25,12 @@ export default function TabsLayout() {
                 headerShown: false,
                 tabBarIcon: ({ size, color }) => <MaterialCommunityIcons name='dumbbell' size={size} color={color} />,
             }}/>
+        <Tabs.Screen
+            name="profile"
+            options={{
+                title: 'Profile',
+                headerShown: false,
+                tabBarIcon: ({ size, color }) => <MaterialCommunityIcons name='account' size={size} color={color} />,
+            }}/>
         </Tabs>
 }

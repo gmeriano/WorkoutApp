@@ -1,23 +1,29 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { supabase } from '../../lib/supabase';
 
 export default function LoginScreen() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false)
 
-  const handleLogin = () => {
-    // Placeholder login logic
-    if (username && password) {
-      Alert.alert('Logged in', `Welcome, ${username}!`);
-    } else {
-      Alert.alert('Error', 'Please enter both username and password.');
+  async function handleLogin() {
+    if (!email || !password) {
+        Alert.alert('Please fill in all fields!');
+        return;
     }
-  };
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
+    if (error) Alert.alert(error.message)
+    setLoading(false)
+  }
 
   const handleCreateAccount = () => {
     router.push('/signup'); // Redirect to the signup screen
-    Alert.alert('Create Account', 'Redirect to create account screen...');
   };
 
   return (
@@ -26,9 +32,9 @@ export default function LoginScreen() {
 
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
         autoCapitalize="none"
       />
 
@@ -41,7 +47,7 @@ export default function LoginScreen() {
       />
 
       <View style={styles.buttonContainer}>
-        <Button title="Login" onPress={handleLogin} />
+        <Button title="Login" onPress={handleLogin} disabled={loading} />
       </View>
 
       <View style={styles.buttonContainer}>
