@@ -7,19 +7,12 @@ export type Exercise = {
     estimated1RM: number;
 }
 
-export type ExerciseWithSets = {
-    exercise: Exercise;
-    sets: number;
-    reps: number[];
-    weight: number[];
-}
-
 export type Workout = {
     id: string;
     name: string;
     date: string;
     description: string;
-    exercises: ExerciseWithSets[];
+    exercises: Exercise[];
 }
 
 export enum MuscleGroup {
