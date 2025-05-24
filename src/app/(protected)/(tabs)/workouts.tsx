@@ -1,5 +1,5 @@
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
-import { workouts } from '../../../dummyData';
+import { workouts } from '../../../../dummyData';
 import { Workout } from '@/types';
 import { router } from 'expo-router';
 

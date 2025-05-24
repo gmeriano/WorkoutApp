@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TextInput, StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { exercises } from '../../../dummyData';
+import { exercises } from '../../../../dummyData';
 import ExerciseListItem from '@/components/ExerciseListItem';
 import { MuscleGroup } from '@/types';
 

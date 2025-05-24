@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import { useLocalSearchParams, Stack } from 'expo-router';
-import { exercises } from '../../dummyData';
+import { exercises } from '../../../dummyData';
 
 export default function Exercise() {
     const { exerciseName } = useLocalSearchParams();
